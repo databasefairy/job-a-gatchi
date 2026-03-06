@@ -7,6 +7,9 @@ interface PetDisplayProps {
   hungerPercent: number;
   growthPercent: number;
   totalJobs: number;
+  hasInterview: boolean;
+  hasOffer: boolean;
+  isStarving: boolean;
 }
 
 const EggSprite = ({ mood }: { mood: PetMood }) => (
@@ -125,13 +128,13 @@ const MOOD_LABELS: Record<PetMood, string> = {
   starving: "STARVING! Add a job!",
 };
 
-const PetDisplay = ({ level, mood, hungerPercent, growthPercent, totalJobs }: PetDisplayProps) => {
+const PetDisplay = ({ level, mood, hungerPercent, growthPercent, totalJobs, hasInterview, hasOffer, isStarving }: PetDisplayProps) => {
   const animationClass = mood === "starving" || mood === "sad" ? "animate-pet-sad" : mood === "happy" ? "animate-pet-bounce" : "";
 
   return (
     <div className="flex flex-col items-center gap-4">
       {/* Retro frame */}
-      <div className="relative rounded-2xl border-4 border-pet-frame bg-card p-6 shadow-lg scanlines overflow-hidden">
+      <div className={`relative rounded-2xl border-4 border-pet-frame bg-card p-6 shadow-lg scanlines overflow-hidden ${isStarving ? "grayscale-filter" : ""}`}>
         <div className="absolute top-2 left-3 font-pixel text-[8px] text-muted-foreground">JOB-A-GOTCHI</div>
         <div className="flex flex-col items-center gap-3 pt-4">
           <div className={animationClass}>
@@ -139,6 +142,21 @@ const PetDisplay = ({ level, mood, hungerPercent, growthPercent, totalJobs }: Pe
             {level === "blob" && <BlobSprite mood={mood} />}
             {level === "associate" && <AssociateSprite mood={mood} />}
           </div>
+          {/* Accessories */}
+          {hasOffer && (
+            <svg viewBox="0 0 40 20" className="w-16 h-8 absolute top-8 gold-crown">
+              <polygon points="4,18 8,6 14,14 20,2 26,14 32,6 36,18" fill="currentColor" />
+              <circle cx="14" cy="12" r="2" fill="hsl(var(--destructive))" />
+              <circle cx="20" cy="6" r="2" fill="hsl(var(--primary))" />
+              <circle cx="26" cy="12" r="2" fill="hsl(var(--destructive))" />
+            </svg>
+          )}
+          {hasInterview && !hasOffer && level !== "egg" && (
+            <svg viewBox="0 0 20 30" className="w-6 h-10 interview-tie" style={{ marginTop: "-12px" }}>
+              <rect x="7" y="0" width="6" height="6" rx="1" fill="currentColor" />
+              <polygon points="5,6 15,6 12,28 8,28" fill="currentColor" />
+            </svg>
+          )}
           <p className="font-pixel text-[10px] text-muted-foreground">{LEVEL_LABELS[level]}</p>
           <p className={`font-pixel text-[8px] ${mood === "starving" ? "text-destructive" : "text-muted-foreground"}`}>
             {MOOD_LABELS[mood]}

@@ -23,6 +23,9 @@ const Dashboard = () => {
             hungerPercent={pet.hungerPercent}
             growthPercent={pet.growthPercent}
             totalJobs={pet.totalJobs}
+            hasInterview={pet.hasInterview}
+            hasOffer={pet.hasOffer}
+            isStarving={pet.isStarving}
           />
           <Button
             onClick={() => setAddOpen(true)}

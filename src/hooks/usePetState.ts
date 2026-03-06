@@ -14,6 +14,9 @@ interface PetState {
   totalJobs: number;
   totalPoints: number;
   daysSinceLastJob: number;
+  hasInterview: boolean;
+  hasOffer: boolean;
+  isStarving: boolean;
 }
 
 export const usePetState = (jobs: Job[]): PetState => {
@@ -49,6 +52,10 @@ export const usePetState = (jobs: Job[]): PetState => {
     // Growth: based on status upgrades (points), max at ~200 points
     const growthPercent = Math.min(100, (totalPoints / 200) * 100);
 
-    return { level, mood, hungerPercent, growthPercent, totalJobs, totalPoints, daysSinceLastJob };
+    const hasInterview = jobs.some(j => j.status === "Interview");
+    const hasOffer = jobs.some(j => j.status === "Offer");
+    const isStarving = daysSinceLastJob >= 3;
+
+    return { level, mood, hungerPercent, growthPercent, totalJobs, totalPoints, daysSinceLastJob, hasInterview, hasOffer, isStarving };
   }, [jobs]);
 };
