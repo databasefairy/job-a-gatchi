@@ -136,43 +136,47 @@
   }
 }
 
-/* === Cat Sprite Sheet === */
-.cat-sprite {
+/* === Cat Sprite Sheet (3x3 grid per stage) === */
+.cat-sprite-container {
   width: 128px;
   height: 128px;
-  background-image: url('/images/cat-spritesheet.png');
+  overflow: hidden;
   background-repeat: no-repeat;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
-  /* Sheet is 5 columns x 3 rows. Each frame = 20% width, 33.33% height */
-  background-size: 500% 300%;
+  /* 3 columns x 3 rows */
+  background-size: 300% 300%;
+  animation: sprite-walk 0.8s steps(3) infinite;
 }
 
-/* Idle: Row 1, frames 0-4 */
-.cat-sprite-idle {
-  animation: idle-breath 2s steps(5) infinite;
+/* Idle: Row 1 */
+.cat-row-idle {
+  animation: sprite-idle 0.8s steps(3) infinite;
 }
-@keyframes idle-breath {
-  from { background-position: 0% 0%; }
-  to { background-position: 100% 0%; }
+@keyframes sprite-idle {
+  from { background-position-x: 0%; }
+  to { background-position-x: 100%; }
+}
+.cat-row-idle { background-position-y: 0%; }
+
+/* Happy: Row 2 */
+.cat-row-happy {
+  animation: sprite-happy 0.8s steps(3) infinite;
+  background-position-y: 50%;
+}
+@keyframes sprite-happy {
+  from { background-position-x: 0%; }
+  to { background-position-x: 100%; }
 }
 
-/* Happy: Row 2, frames 0-4 */
-.cat-sprite-happy {
-  animation: happy-pounce 1.2s steps(5) infinite;
+/* Sad: Row 3 */
+.cat-row-sad {
+  animation: sprite-sad 1.2s steps(3) infinite;
+  background-position-y: 100%;
 }
-@keyframes happy-pounce {
-  from { background-position: 0% 50%; }
-  to { background-position: 100% 50%; }
-}
-
-/* Sad: Row 3, frames 0-4 */
-.cat-sprite-sad {
-  animation: sad-droop 2.5s steps(5) infinite;
-}
-@keyframes sad-droop {
-  from { background-position: 0% 100%; }
-  to { background-position: 100% 100%; }
+@keyframes sprite-sad {
+  from { background-position-x: 0%; }
+  to { background-position-x: 100%; }
 }
 
 /* Accessory animations */
