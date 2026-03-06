@@ -12,24 +12,41 @@ interface PetDisplayProps {
   isStarving: boolean;
 }
 
-const EggSprite = ({ mood }: { mood: PetMood }) => (
+const KittenSprite = ({ mood }: { mood: PetMood }) => (
   <svg viewBox="0 0 64 64" className="w-32 h-32 pixel-art">
-    {/* Egg body */}
-    <ellipse cx="32" cy="36" rx="18" ry="22" fill="hsl(var(--foreground))" opacity="0.1" />
-    <ellipse cx="32" cy="34" rx="16" ry="20" fill="hsl(var(--card))" stroke="hsl(var(--foreground))" strokeWidth="2" />
-    {/* Crack lines */}
-    <path d="M24 30 L28 26 L26 32 L30 28" stroke="hsl(var(--muted-foreground))" strokeWidth="1" fill="none" />
-    {/* Eyes (if mood is not neutral) */}
-    {mood !== "neutral" && (
-      <>
-        <circle cx="27" cy="34" r="2" fill="hsl(var(--foreground))" />
-        <circle cx="37" cy="34" r="2" fill="hsl(var(--foreground))" />
-      </>
-    )}
-    {/* Question mark for neutral */}
-    {mood === "neutral" && (
-      <text x="32" y="38" textAnchor="middle" fontSize="12" fill="hsl(var(--muted-foreground))" fontFamily="'Press Start 2P'">?</text>
-    )}
+    {/* Shadow */}
+    <ellipse cx="32" cy="56" rx="12" ry="3" fill="hsl(var(--foreground))" opacity="0.1" />
+    {/* Body - small round */}
+    <ellipse cx="32" cy="42" rx="12" ry="10" fill="hsl(var(--foreground))" opacity="0.85" />
+    {/* Head */}
+    <circle cx="32" cy="30" r="11" fill="hsl(var(--foreground))" opacity="0.85" />
+    {/* Ears - small triangles */}
+    <polygon points="23,24 21,14 29,22" fill="hsl(var(--foreground))" opacity="0.85" />
+    <polygon points="41,24 43,14 35,22" fill="hsl(var(--foreground))" opacity="0.85" />
+    <polygon points="24,22 23,16 28,22" fill="hsl(var(--secondary))" opacity="0.4" />
+    <polygon points="40,22 41,16 36,22" fill="hsl(var(--secondary))" opacity="0.4" />
+    {/* Big round eyes */}
+    <ellipse cx="27" cy="29" rx="3" ry={mood === "happy" ? 2 : 3} fill="hsl(var(--primary-foreground))" />
+    <ellipse cx="37" cy="29" rx="3" ry={mood === "happy" ? 2 : 3} fill="hsl(var(--primary-foreground))" />
+    <circle cx="27" cy="29" r="1.5" fill="hsl(var(--primary))" />
+    <circle cx="37" cy="29" r="1.5" fill="hsl(var(--primary))" />
+    {/* Eye sparkles */}
+    <circle cx="28" cy="27.5" r="0.7" fill="hsl(var(--primary-foreground))" />
+    <circle cx="38" cy="27.5" r="0.7" fill="hsl(var(--primary-foreground))" />
+    {/* Tiny nose */}
+    <ellipse cx="32" cy="32" rx="1.5" ry="1" fill="hsl(var(--secondary))" />
+    {/* Mouth */}
+    {mood === "happy" && <path d="M29 34 Q32 37 35 34" stroke="hsl(var(--primary-foreground))" strokeWidth="1" fill="none" />}
+    {mood === "sad" && <path d="M29 36 Q32 33 35 36" stroke="hsl(var(--primary-foreground))" strokeWidth="1" fill="none" />}
+    {mood === "starving" && <path d="M29 36 Q32 33 35 36" stroke="hsl(var(--destructive))" strokeWidth="1.5" fill="none" />}
+    {mood === "neutral" && <line x1="29" y1="34" x2="35" y2="34" stroke="hsl(var(--primary-foreground))" strokeWidth="1" />}
+    {/* Small whiskers */}
+    <line x1="16" y1="31" x2="24" y2="32" stroke="hsl(var(--muted-foreground))" strokeWidth="0.5" />
+    <line x1="16" y1="34" x2="24" y2="34" stroke="hsl(var(--muted-foreground))" strokeWidth="0.5" />
+    <line x1="48" y1="31" x2="40" y2="32" stroke="hsl(var(--muted-foreground))" strokeWidth="0.5" />
+    <line x1="48" y1="34" x2="40" y2="34" stroke="hsl(var(--muted-foreground))" strokeWidth="0.5" />
+    {/* Tail - small curl */}
+    <path d="M44 44 Q50 40 48 34" stroke="hsl(var(--foreground))" strokeWidth="2.5" fill="none" opacity="0.85" strokeLinecap="round" />
   </svg>
 );
 
@@ -116,7 +133,7 @@ const AssociateSprite = ({ mood }: { mood: PetMood }) => (
 );
 
 const LEVEL_LABELS: Record<PetLevel, string> = {
-  egg: "🥚 Egg",
+  kitten: "🐾 Kitten",
   blob: "🐱 Intern Blob",
   associate: "💼 Junior Associate",
 };
@@ -138,7 +155,7 @@ const PetDisplay = ({ level, mood, hungerPercent, growthPercent, totalJobs, hasI
         <div className="absolute top-2 left-3 font-pixel text-[8px] text-muted-foreground">JOB-A-GOTCHI</div>
         <div className="flex flex-col items-center gap-3 pt-4">
           <div className={animationClass}>
-            {level === "egg" && <EggSprite mood={mood} />}
+            {level === "kitten" && <KittenSprite mood={mood} />}
             {level === "blob" && <BlobSprite mood={mood} />}
             {level === "associate" && <AssociateSprite mood={mood} />}
           </div>
@@ -151,7 +168,7 @@ const PetDisplay = ({ level, mood, hungerPercent, growthPercent, totalJobs, hasI
               <circle cx="26" cy="12" r="2" fill="hsl(var(--destructive))" />
             </svg>
           )}
-          {hasInterview && !hasOffer && level !== "egg" && (
+          {hasInterview && !hasOffer && level !== "kitten" && (
             <svg viewBox="0 0 20 30" className="w-6 h-10 interview-tie" style={{ marginTop: "-12px" }}>
               <rect x="7" y="0" width="6" height="6" rx="1" fill="currentColor" />
               <polygon points="5,6 15,6 12,28 8,28" fill="currentColor" />
