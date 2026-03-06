@@ -1,5 +1,6 @@
 import { PetLevel, PetMood } from "@/hooks/usePetState";
 import { Progress } from "@/components/ui/progress";
+import CatSprite from "@/components/CatSprite";
 
 interface PetDisplayProps {
   level: PetLevel;
@@ -10,6 +11,7 @@ interface PetDisplayProps {
   hasInterview: boolean;
   hasOffer: boolean;
   isStarving: boolean;
+  justFed?: boolean;
 }
 
 const KittenSprite = ({ mood }: { mood: PetMood }) => (
@@ -145,20 +147,14 @@ const MOOD_LABELS: Record<PetMood, string> = {
   starving: "STARVING! Add a job!",
 };
 
-const PetDisplay = ({ level, mood, hungerPercent, growthPercent, totalJobs, hasInterview, hasOffer, isStarving }: PetDisplayProps) => {
-  const animationClass = mood === "starving" || mood === "sad" ? "animate-pet-sad" : mood === "happy" ? "animate-pet-bounce" : "";
-
+const PetDisplay = ({ level, mood, hungerPercent, growthPercent, totalJobs, hasInterview, hasOffer, isStarving, justFed }: PetDisplayProps) => {
   return (
     <div className="flex flex-col items-center gap-4">
       {/* Retro frame */}
-      <div className={`relative rounded-2xl border-4 border-pet-frame bg-card p-6 shadow-lg scanlines overflow-hidden ${isStarving ? "grayscale-filter" : ""}`}>
+      <div className={`relative rounded-2xl border-4 border-pet-frame p-6 shadow-lg scanlines overflow-hidden ${isStarving ? "grayscale-filter" : ""}`} style={{ backgroundColor: '#2D2D30' }}>
         <div className="absolute top-2 left-3 font-pixel text-[8px] text-muted-foreground">JOB-A-GOTCHI</div>
         <div className="flex flex-col items-center gap-3 pt-4">
-          <div className={animationClass}>
-            {level === "kitten" && <KittenSprite mood={mood} />}
-            {level === "blob" && <BlobSprite mood={mood} />}
-            {level === "associate" && <AssociateSprite mood={mood} />}
-          </div>
+          <CatSprite mood={mood} justFed={justFed} />
           {/* Accessories */}
           {hasOffer && (
             <svg viewBox="0 0 40 20" className="w-16 h-8 absolute top-8 gold-crown">
