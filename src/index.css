@@ -136,6 +136,45 @@
   }
 }
 
+/* === Cat Sprite Sheet === */
+.cat-sprite {
+  width: 128px;
+  height: 128px;
+  background-image: url('/images/cat-spritesheet.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  /* Sheet is 5 columns x 3 rows. Each frame = 20% width, 33.33% height */
+  background-size: 500% 300%;
+}
+
+/* Idle: Row 1, frames 0-4 */
+.cat-sprite-idle {
+  animation: idle-breath 2s steps(5) infinite;
+}
+@keyframes idle-breath {
+  from { background-position: 0% 0%; }
+  to { background-position: 100% 0%; }
+}
+
+/* Happy: Row 2, frames 0-4 */
+.cat-sprite-happy {
+  animation: happy-pounce 1.2s steps(5) infinite;
+}
+@keyframes happy-pounce {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+/* Sad: Row 3, frames 0-4 */
+.cat-sprite-sad {
+  animation: sad-droop 2.5s steps(5) infinite;
+}
+@keyframes sad-droop {
+  from { background-position: 0% 100%; }
+  to { background-position: 100% 100%; }
+}
+
 /* Accessory animations */
 .interview-tie {
   fill: #8B1E62;

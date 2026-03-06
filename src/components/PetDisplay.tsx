@@ -1,5 +1,6 @@
 import { PetLevel, PetMood } from "@/hooks/usePetState";
 import { Progress } from "@/components/ui/progress";
+import CatSprite from "@/components/CatSprite";
 
 interface PetDisplayProps {
   level: PetLevel;
@@ -10,6 +11,7 @@ interface PetDisplayProps {
   hasInterview: boolean;
   hasOffer: boolean;
   isStarving: boolean;
+  justFed?: boolean;
 }
 
 const KittenSprite = ({ mood }: { mood: PetMood }) => (
