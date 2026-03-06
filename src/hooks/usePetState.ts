@@ -3,7 +3,7 @@ import { Database } from "@/integrations/supabase/types";
 
 type Job = Database["public"]["Tables"]["jobs"]["Row"];
 
-export type PetLevel = "egg" | "blob" | "associate";
+export type PetLevel = "kitten" | "blob" | "associate";
 export type PetMood = "happy" | "neutral" | "sad" | "starving";
 
 interface PetState {
@@ -25,7 +25,7 @@ export const usePetState = (jobs: Job[]): PetState => {
     const totalPoints = jobs.reduce((sum, j) => sum + j.points_contributed, 0);
 
     // Evolution level
-    let level: PetLevel = "egg";
+    let level: PetLevel = "kitten";
     if (totalJobs >= 16) level = "associate";
     else if (totalJobs >= 6) level = "blob";
 
