@@ -14,6 +14,9 @@ interface PetState {
   totalJobs: number;
   totalPoints: number;
   daysSinceLastJob: number;
+  hasInterview: boolean;
+  hasOffer: boolean;
+  isStarving: boolean;
 }
 
 export const usePetState = (jobs: Job[]): PetState => {
