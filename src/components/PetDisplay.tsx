@@ -7,6 +7,9 @@ interface PetDisplayProps {
   hungerPercent: number;
   growthPercent: number;
   totalJobs: number;
+  hasInterview: boolean;
+  hasOffer: boolean;
+  isStarving: boolean;
 }
 
 const EggSprite = ({ mood }: { mood: PetMood }) => (
