@@ -26,8 +26,8 @@ export const usePetState = (jobs: Job[]): PetState => {
 
     // Evolution level
     let level: PetLevel = "kitten";
-    if (totalJobs >= 16) level = "associate";
-    else if (totalJobs >= 6) level = "blob";
+    if (totalJobs >= 25) level = "associate";
+    else if (totalJobs >= 10) level = "blob";
 
     // Days since last job
     let daysSinceLastJob = 999;

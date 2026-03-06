@@ -154,7 +154,7 @@ const PetDisplay = ({ level, mood, hungerPercent, growthPercent, totalJobs, hasI
       <div className={`relative rounded-2xl border-4 border-pet-frame p-6 shadow-lg scanlines overflow-hidden ${isStarving ? "grayscale-filter" : ""}`} style={{ backgroundColor: '#2D2D30' }}>
         <div className="absolute top-2 left-3 font-pixel text-[8px] text-muted-foreground">JOB-A-GOTCHI</div>
         <div className="flex flex-col items-center gap-3 pt-4">
-          <CatSprite mood={mood} justFed={justFed} />
+          <CatSprite mood={mood} level={level} justFed={justFed} />
           {/* Accessories */}
           {hasOffer && (
             <svg viewBox="0 0 40 20" className="w-16 h-8 absolute top-8 gold-crown">
