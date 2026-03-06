@@ -168,7 +168,7 @@ const PetDisplay = ({ level, mood, hungerPercent, growthPercent, totalJobs, hasI
               <circle cx="26" cy="12" r="2" fill="hsl(var(--destructive))" />
             </svg>
           )}
-          {hasInterview && !hasOffer && level !== "egg" && (
+          {hasInterview && !hasOffer && level !== "kitten" && (
             <svg viewBox="0 0 20 30" className="w-6 h-10 interview-tie" style={{ marginTop: "-12px" }}>
               <rect x="7" y="0" width="6" height="6" rx="1" fill="currentColor" />
               <polygon points="5,6 15,6 12,28 8,28" fill="currentColor" />
